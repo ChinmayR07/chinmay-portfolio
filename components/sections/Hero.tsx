@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, Download, ArrowDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { heroContainer, fadeUp } from '@/lib/animations';
 import { SOCIAL_LINKS } from '@/data';
+import ViewCounter from '@/components/ui/ViewCounter';
 
 const STATS = [
   { value: '4.5+', label: 'Years Experience' },
@@ -21,7 +22,6 @@ export default function Hero() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--bg-primary)]">
-
       {/* ── Background Effects ──────────────────────────────────── */}
       {/* Subtle grid */}
       <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-100" />
@@ -40,13 +40,14 @@ export default function Hero() {
           animate="visible"
           className="max-w-3xl py-20"
         >
-
           {/* Status badge */}
           <motion.div variants={fadeUp} className="mb-6">
-            <span className={cn(
-              'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium',
-              'border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.08)] text-[#a5b4fc]'
-            )}>
+            <span
+              className={cn(
+                'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium',
+                'border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.08)] text-[#a5b4fc]'
+              )}
+            >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
@@ -60,23 +61,24 @@ export default function Hero() {
             variants={fadeUp}
             className="font-display text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl lg:text-7xl"
           >
-            Chinmay{' '}
-            <span className="gradient-text">Raichur</span>
+            Chinmay <span className="gradient-text">Raichur</span>
           </motion.h1>
 
           {/* Typewriter role */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-4 flex items-center gap-2"
-          >
+          <motion.div variants={fadeUp} className="mt-4 flex items-center gap-2">
             <span className="font-mono text-sm text-[var(--text-muted)]">~/</span>
             <TypeAnimation
               sequence={[
-                'Full Stack Software Engineer',   2000,
-                'React & Next.js Developer',       2000,
-                'AWS Cloud Engineer',              2000,
-                'AI / ML Integrations Builder',    2000,
-                'Node.js Backend Engineer',        2000,
+                'Full Stack Software Engineer',
+                2000,
+                'React & Next.js Developer',
+                2000,
+                'AWS Cloud Engineer',
+                2000,
+                'AI / ML Integrations Builder',
+                2000,
+                'Node.js Backend Engineer',
+                2000,
               ]}
               wrapper="span"
               speed={50}
@@ -91,8 +93,7 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-5 max-w-xl text-base leading-relaxed text-[var(--text-secondary)]"
           >
-            Building scalable, production-grade systems that serve 100K+ users.
-            Currently at{' '}
+            Building scalable, production-grade systems that serve 100K+ users. Currently at{' '}
             <a
               href="https://www.tradingtechnologies.com"
               target="_blank"
@@ -102,15 +103,12 @@ export default function Hero() {
               Trading Technologies
             </a>
             , Chicago. MS Computer Engineering,{' '}
-            <span className="text-[var(--text-primary)]">Stony Brook University</span>{' '}
-            (GPA 3.9/4.0).
+            <span className="text-[var(--text-primary)]">Stony Brook University</span> (GPA
+            3.9/4.0).
           </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-8 flex flex-wrap gap-3"
-          >
+          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-3">
             <a
               href="#projects"
               onClick={(e) => {
@@ -142,10 +140,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Social links */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-6 flex items-center gap-3"
-          >
+          <motion.div variants={fadeUp} className="mt-6 flex items-center gap-3">
             <a
               href={SOCIAL_LINKS.github}
               target="_blank"
@@ -186,17 +181,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Stats row */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-12 border-t border-[var(--border)] pt-8"
-          >
-            <div className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+          <motion.div variants={fadeUp} className="mt-12 border-t border-[var(--border)] pt-8">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-5">
               {STATS.map((stat) => (
                 <div key={stat.label}>
                   <p className="font-display text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
-                    {stat.value.replace(/(\d+\.?\d*|\d+)/, (m) => (
-                      m
-                    ))}
+                    {stat.value.replace(/(\d+\.?\d*|\d+)/, (m) => m)}
                     <span className="text-[var(--accent)]">
                       {/* The accent color on + or / etc is handled inline */}
                     </span>
@@ -204,9 +194,9 @@ export default function Hero() {
                   <p className="mt-0.5 text-xs text-[var(--text-muted)]">{stat.label}</p>
                 </div>
               ))}
+              <ViewCounter variant="hero" />
             </div>
           </motion.div>
-
         </motion.div>
 
         {/* Scroll indicator */}

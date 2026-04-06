@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Heart } from 'lucide-react';
 import { SOCIAL_LINKS } from '@/data';
+import ViewCounter from '@/components/ui/ViewCounter';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -16,6 +17,9 @@ export default function Footer() {
             Full Stack Software Engineer · Chicago, IL
           </p>
         </div>
+
+        {/* ── Subtle view counter pill ── */}
+        <ViewCounter variant="footer" />
 
         {/* Social links */}
         <div className="flex items-center gap-3">
