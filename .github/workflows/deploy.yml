@@ -13,6 +13,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://chinmayraichur.vercel.app
+          NEXT_PUBLIC_GITHUB_USERNAME: ${{ secrets.NEXT_PUBLIC_GITHUB_USERNAME }}
+          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
+          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
+          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
@@ -20,13 +39,3 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
-          working-directory: ./
-
-# ─── How to set up Vercel secrets ─────────────────────────────────────────────
-# 1. Install Vercel CLI: npm i -g vercel
-# 2. Run: vercel login
-# 3. Run: vercel link  (in the project folder)
-# 4. Get your tokens:
-#    - VERCEL_TOKEN: vercel.com/account/tokens → Create Token
-#    - VERCEL_ORG_ID + VERCEL_PROJECT_ID: found in .vercel/project.json after `vercel link`
-# 5. Add to GitHub: repo Settings → Secrets → Actions → New repository secret
