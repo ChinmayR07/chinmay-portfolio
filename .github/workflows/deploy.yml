@@ -1,0 +1,32 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
+
+# ─── How to set up Vercel secrets ─────────────────────────────────────────────
+# 1. Install Vercel CLI: npm i -g vercel
+# 2. Run: vercel login
+# 3. Run: vercel link  (in the project folder)
+# 4. Get your tokens:
+#    - VERCEL_TOKEN: vercel.com/account/tokens → Create Token
+#    - VERCEL_ORG_ID + VERCEL_PROJECT_ID: found in .vercel/project.json after `vercel link`
+# 5. Add to GitHub: repo Settings → Secrets → Actions → New repository secret
