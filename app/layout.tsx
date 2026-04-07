@@ -113,7 +113,7 @@ const structuredData = {
     'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'GraphQL', 'REST APIs',
   ],
   sameAs: [
-    'https://github.com/chinmayraichur',
+    'https://github.com/ChinmayR07',
     'https://linkedin.com/in/chinmay-raichur',
   ],
 };

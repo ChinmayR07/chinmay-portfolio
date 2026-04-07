@@ -198,7 +198,7 @@ export default function Projects() {
             className="mt-10 flex justify-center"
           >
             <a
-              href="https://github.com/chinmayraichur"
+              href="https://github.com/ChinmayR07"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(

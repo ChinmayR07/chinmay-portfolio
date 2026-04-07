@@ -118,7 +118,7 @@ chinmay-portfolio/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/chinmayraichur/chinmay-portfolio.git
+git clone https://github.com/ChinmayR07/chinmay-portfolio.git
 cd chinmay-portfolio
 ```
 

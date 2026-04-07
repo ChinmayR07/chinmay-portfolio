@@ -118,8 +118,8 @@ export default function About() {
                   <span className="font-medium text-[var(--text-primary)]">
                     Trading Technologies
                   </span>{' '}
-                  in Chicago, leading cloud infrastructure on AWS, building systems for 100K+ users,
-                  and mentoring junior engineers.
+                  in Chicago, building end-to-end systems for 100K+ users, leading cloud
+                  infrastructure on AWS, and mentoring junior engineers.
                 </p>
 
                 <p>

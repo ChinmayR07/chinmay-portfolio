@@ -23,6 +23,7 @@ import {
   SiLinux,
   SiGit,
   SiPostman,
+  SiPhp,
 } from 'react-icons/si';
 import {
   Code2,
@@ -54,6 +55,7 @@ const SKILL_ICONS: Record<string, React.ReactNode> = {
   'Spring Boot': <SiSpring />,
   GraphQL: <SiGraphql />,
   'Apache Kafka': <SiApachekafka />,
+  PHP: <SiPhp />,
   Docker: <SiDocker />,
   Kubernetes: <SiKubernetes />,
   'GitHub Actions': <SiGithubactions />,

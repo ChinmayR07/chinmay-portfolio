@@ -3,6 +3,7 @@ import type {
   SkillGroup,
   EducationItem,
   Award,
+  Certification,
   Project,
   Testimonial,
   NavLink,
@@ -43,7 +44,6 @@ export const EXPERIENCES: Experience[] = [
       'Mentored a software engineering intern through code reviews, Agile practices, and cloud deployment workflows on AWS.',
     ],
     techStack: [
-      'React',
       'TypeScript',
       'JavaScript',
       'Node.js',
@@ -152,6 +152,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
       'REST APIs',
       'GraphQL',
       'Apache Kafka',
+      'PHP',
       'C#',
     ],
   },
@@ -260,9 +261,23 @@ export const AWARDS: Award[] = [
   },
 ];
 
+// ─── Certifications ───────────────────────────────────────────────────────────
+export const CERTIFICATIONS: Certification[] = [
+  {
+    id: 'ml-coursera',
+    title: 'Machine Learning Specialization',
+    issuer: 'Coursera (Stanford University)',
+    year: '2024',
+    description:
+      'Completed comprehensive Machine Learning course by Andrew Ng. Mastered supervised learning, neural networks, and practical ML implementation techniques.',
+    icon: '🎓',
+    certificateUrl: 'https://www.coursera.org/account/accomplishments/verify/YHS28T684DRX',
+  },
+];
+
 // ─── Projects ─────────────────────────────────────────────────────────────────
-// UPDATE THESE with your real GitHub projects.
-// The placeholders match skills from your resume.
+// Only featured open-source projects shown here.
+// More AI/ML and full-stack projects coming soon!
 export const PROJECTS: Project[] = [
   {
     id: 'portfolio',
@@ -270,44 +285,11 @@ export const PROJECTS: Project[] = [
     description:
       'This portfolio website — built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Features a Claude API-powered AI assistant that answers recruiter questions in real time.',
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Claude API', 'Framer Motion'],
-    githubUrl: 'https://github.com/chinmayraichur/chinmay-portfolio',
+    githubUrl: 'https://github.com/ChinmayR07/chinmay-portfolio',
     liveUrl: 'https://chinmayraichur.me',
     featured: true,
     category: 'Full Stack',
     year: '2026',
-  },
-  {
-    id: 'aws-secrets-lib',
-    title: 'AWS Secrets Manager Node.js Library',
-    description:
-      'Secure Node.js library for integrating AWS Secrets Manager into microservices. Eliminates static credentials, supports caching and rotation, with full TypeScript support.',
-    techStack: ['Node.js', 'TypeScript', 'AWS Secrets Manager', 'Docker'],
-    githubUrl: 'https://github.com/chinmayraichur',
-    featured: true,
-    category: 'Backend',
-    year: '2023',
-  },
-  {
-    id: 'nlp-chatbot',
-    title: 'Conversational AI Chatbot Platform',
-    description:
-      'Enterprise NLP chatbot using Azure Cognitive Services (LUIS) and Bot Framework. Supports 25+ intents with entity extraction, sentiment analysis, and automated workflow routing.',
-    techStack: ['C#', 'Azure LUIS', 'Bot Framework', 'Azure Cognitive Services', 'NLP'],
-    githubUrl: 'https://github.com/chinmayraichur',
-    featured: true,
-    category: 'AI / ML',
-    year: '2021',
-  },
-  {
-    id: 'spring-microservices',
-    title: 'Spring Boot Microservices API',
-    description:
-      'RESTful microservices architecture with Spring Boot, JWT authentication, Kafka messaging, Docker Compose orchestration, and 90%+ test coverage via TDD.',
-    techStack: ['Java', 'Spring Boot', 'Apache Kafka', 'Docker', 'JWT', 'TDD', 'PostgreSQL'],
-    githubUrl: 'https://github.com/chinmayraichur',
-    featured: true,
-    category: 'Backend',
-    year: '2022',
   },
 ];
 
@@ -315,23 +297,24 @@ export const PROJECTS: Project[] = [
 // Export from LinkedIn: Settings → Data Privacy → Get a copy of your data → Recommendations
 export const TESTIMONIALS: Testimonial[] = [
   {
-    id: 'placeholder-1',
-    name: 'Add Your Name Here',
-    title: 'Engineering Manager',
+    id: 'greg-szeszko',
+    name: 'Greg Szeszko',
+    title: 'VP of Engineering',
     company: 'Trading Technologies',
-    relationship: 'Direct Manager at Trading Technologies',
-    text: 'Add your LinkedIn recommendation text here. Export from LinkedIn → Settings → Data Privacy → Get a copy of your data → Select Recommendations.',
-    linkedInUrl: 'https://linkedin.com/in/chinmay-raichur',
+    relationship: 'Vice President of Engineering at Trading Technologies',
+    text: "I had the pleasure of seeing Chinmay grow from an intern into a full-time engineer at TT, and it was clear from the start that he brought a thoughtful, solutions-oriented mindset to every challenge. He consistently demonstrated a willingness to learn, a calm and focused approach to problem-solving, and a strong sense of ownership over his work. What stood out most was Chinmay's ability to engage with complex technical problems without losing sight of the bigger picture. He asked insightful questions, sought feedback, and always looked for ways to improve—not just his own skills, but the systems around him. Chinmay is the kind of engineer who makes teams better—not just through code, but through character.",
+    linkedInUrl: 'https://www.linkedin.com/in/greg-szeszko-6b283150/',
   },
-  {
-    id: 'placeholder-2',
-    name: 'Add Colleague Name',
-    title: 'Senior Software Engineer',
-    company: 'Accenture',
-    relationship: 'Former colleague at Accenture',
-    text: 'Add a recommendation from a colleague or manager. These are the most powerful trust signals for recruiters.',
-    linkedInUrl: 'https://linkedin.com/in/chinmay-raichur',
-  },
+  // Coming soon: Team Lead recommendation from Accenture
+  // {
+  //   id: 'team-lead-accenture',
+  //   name: 'Add Team Lead Name',
+  //   title: 'Team Lead / Engineering Manager',
+  //   company: 'Accenture',
+  //   relationship: 'Team Lead at Accenture',
+  //   text: 'Add their recommendation text here.',
+  //   linkedInUrl: 'https://linkedin.com/in/team-lead-name',
+  // },
 ];
 
 // ─── Social Links ─────────────────────────────────────────────────────────────

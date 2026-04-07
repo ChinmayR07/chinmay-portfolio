@@ -39,12 +39,7 @@ export interface Project {
   year: string;
 }
 
-export type ProjectCategory =
-  | 'Full Stack'
-  | 'Backend'
-  | 'Cloud / DevOps'
-  | 'AI / ML'
-  | 'Frontend';
+export type ProjectCategory = 'Full Stack' | 'Backend' | 'Cloud / DevOps' | 'AI / ML' | 'Frontend';
 
 // ─── Skills ───────────────────────────────────────────────────────────────────
 export type SkillCategory =
@@ -93,6 +88,9 @@ export interface Certification {
   title: string;
   issuer: string;
   year: string;
+  description?: string;
+  icon?: string;
+  certificateUrl?: string;
   credlyUrl?: string;
   badgeImage?: string;
 }

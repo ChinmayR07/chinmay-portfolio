@@ -10,7 +10,7 @@ import ViewCounter from '@/components/ui/ViewCounter';
 
 const STATS = [
   { value: '4.5+', label: 'Years Experience' },
-  { value: '100K+', label: 'Users Served' },
+  { value: '8.2M+', label: 'Users Served' },
   { value: '3.9', label: 'MS GPA / 4.0' },
   { value: '90%+', label: 'Test Coverage' },
 ];
@@ -52,7 +52,15 @@ export default function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
               </span>
-              Open to Senior Engineer Roles · Chicago, IL
+              Open to{' '}
+              <TypeAnimation
+                sequence={['Software Engineer', 2000, 'Senior Software Engineer', 2000]}
+                wrapper="span"
+                speed={50}
+                deletionSpeed={65}
+                repeat={Infinity}
+              />{' '}
+              Roles · USA
             </span>
           </motion.div>
 
@@ -66,16 +74,14 @@ export default function Hero() {
 
           {/* Typewriter role */}
           <motion.div variants={fadeUp} className="mt-4 flex items-center gap-2">
-            <span className="font-mono text-sm text-[var(--text-muted)]">~/</span>
+            <span className="font-mono text-sm text-[var(--text-muted)]"></span>
             <TypeAnimation
               sequence={[
                 'Full Stack Software Engineer',
                 2000,
-                'React & Next.js Developer',
-                2000,
                 'AWS Cloud Engineer',
                 2000,
-                'AI / ML Integrations Builder',
+                'AI / ML Engineer',
                 2000,
                 'Node.js Backend Engineer',
                 2000,
@@ -93,7 +99,7 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-5 max-w-xl text-base leading-relaxed text-[var(--text-secondary)]"
           >
-            Building scalable, production-grade systems that serve 100K+ users. Currently at{' '}
+            Building scalable, production-grade systems that serve 100K+ users. Software Engineer{' '}
             <a
               href="https://www.tradingtechnologies.com"
               target="_blank"
@@ -102,7 +108,9 @@ export default function Hero() {
             >
               Trading Technologies
             </a>
-            , Chicago. MS Computer Engineering,{' '}
+            , Chicago.
+            <br />
+            MS Computer Engineering,{' '}
             <span className="text-[var(--text-primary)]">Stony Brook University</span> (GPA
             3.9/4.0).
           </motion.p>

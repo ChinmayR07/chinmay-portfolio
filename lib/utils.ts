@@ -28,11 +28,24 @@ export function formatDateRange(startDate: string, endDate: string | 'Present'):
 
 /**
  * Calculates duration between two dates for display.
- * e.g. getDuration("Jan 2019", "Oct 2021") → "2 yrs 9 mos"
+ * e.g. getDuration("Jan 2019", "Oct 2021") → "2 yrs 10 mos"
  */
 export function getDuration(startDate: string, endDate: string | 'Present'): string {
   const parseDate = (d: string) => {
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const parts = d.split(' ');
     const month = months.indexOf(parts[0]);
     const year = parseInt(parts[1]);
@@ -43,8 +56,7 @@ export function getDuration(startDate: string, endDate: string | 'Present'): str
   const end = endDate === 'Present' ? new Date() : parseDate(endDate);
 
   const totalMonths =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    (end.getMonth() - start.getMonth());
+    (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
 
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
