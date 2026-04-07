@@ -1,32 +1,6 @@
 import type { Metadata } from 'next';
-import { Syne, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
-
-// ─── Fonts ────────────────────────────────────────────────────────────────────
-// Syne: editorial display font for headings — distinctive, modern
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
-});
-
-// DM Sans: clean, highly readable body font
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-  weight: ['300', '400', '500', '600'],
-});
-
-// JetBrains Mono: for code snippets and section labels
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
-  weight: ['400', '500'],
-});
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -133,7 +107,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       // suppressHydrationWarning is required by next-themes to prevent
       // the "class mismatch" warning during SSR hydration
       suppressHydrationWarning
-      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* JSON-LD Structured Data for Google */}

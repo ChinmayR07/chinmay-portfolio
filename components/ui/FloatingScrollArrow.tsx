@@ -57,7 +57,7 @@ export default function FloatingScrollArrow() {
       animate={{ opacity: hasNextSection ? 1 : 0 }}
       transition={{ duration: 0.2 }}
     >
-      <span className="text-xs font-semibold uppercase tracking-[0.14em]">Scroll</span>
+      <span className="text-xs font-semibold uppercase tracking-[0.14em]">See More</span>
       <motion.span
         animate={{ y: [0, 4, 0] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

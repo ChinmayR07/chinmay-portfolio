@@ -1,16 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import { Download, ExternalLink, FileText, Eye } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 
 export default function Resume() {
-  const [previewFailed, setPreviewFailed] = useState(false);
   const RESUME_PATH = '/resume.pdf';
-
-  const shouldShowInlinePreview = !previewFailed;
 
   return (
     <div className="section-padding border-b border-[var(--border)] bg-[var(--bg-secondary)]">
@@ -67,14 +63,12 @@ export default function Resume() {
                 </div>
               </div>
 
-              {shouldShowInlinePreview ? (
-                <iframe
-                  src={`${RESUME_PATH}#view=FitH`}
-                  title="Chinmay Raichur Resume"
-                  className="h-[72vh] min-h-[520px] w-full sm:h-[700px]"
-                  onError={() => setPreviewFailed(true)}
-                />
-              ) : (
+              <object
+                data={`${RESUME_PATH}#view=FitH`}
+                type="application/pdf"
+                className="h-[72vh] min-h-[520px] w-full sm:h-[700px]"
+                aria-label="Resume PDF preview"
+              >
                 <div className="flex h-[400px] flex-col items-center justify-center gap-4 p-8 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[rgba(99,102,241,0.1)]">
                     <FileText size={24} className="text-[var(--accent)]" />
@@ -97,7 +91,7 @@ export default function Resume() {
                     Open Resume
                   </a>
                 </div>
-              )}
+              </object>
             </div>
 
             {/* Note */}
