@@ -11,6 +11,7 @@ import Testimonials from '@/components/sections/Testimonials';
 import Resume from '@/components/sections/Resume';
 import Contact from '@/components/sections/Contact';
 import AIChatBot from '@/components/sections/AIChatBot';
+import FloatingScrollArrow from '@/components/ui/FloatingScrollArrow';
 
 export default function Home() {
   return (
@@ -67,6 +68,9 @@ export default function Home() {
       </main>
 
       <Footer />
+
+      {/* Floating next-section cue */}
+      <FloatingScrollArrow />
 
       {/* Floating AI Chat Bot — renders on top of everything */}
       <AIChatBot />

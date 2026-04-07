@@ -28,7 +28,12 @@ export default function SectionHeader({
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)]">
+        <p
+          className={cn(
+            'mt-3 max-w-xl text-sm leading-relaxed text-[var(--text-secondary)]',
+            align === 'center' && 'mx-auto'
+          )}
+        >
           {subtitle}
         </p>
       )}

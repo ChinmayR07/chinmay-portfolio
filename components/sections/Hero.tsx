@@ -16,10 +16,6 @@ const STATS = [
 ];
 
 export default function Hero() {
-  const handleScrollDown = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--bg-primary)]">
       {/* ── Background Effects ──────────────────────────────────── */}
@@ -209,19 +205,6 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <button
-          onClick={handleScrollDown}
-          aria-label="Scroll down"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[var(--text-muted)] transition-colors hover:text-[var(--accent)]"
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <ArrowDown size={18} />
-          </motion.div>
-        </button>
       </div>
     </div>
   );

@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Download, ExternalLink, FileText, Eye } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 
 export default function Resume() {
-  const [pdfError, setPdfError] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [previewFailed, setPreviewFailed] = useState(false);
   const RESUME_PATH = '/resume.pdf';
+
+  useEffect(() => {
+    const ua = navigator.userAgent || '';
+    setIsMobileDevice(/Android|iPhone|iPad|iPod/i.test(ua));
+  }, []);
+
+  const shouldShowInlinePreview = !isMobileDevice && !previewFailed;
 
   return (
     <div className="section-padding border-b border-[var(--border)] bg-[var(--bg-secondary)]">
@@ -65,39 +73,34 @@ export default function Resume() {
                 </div>
               </div>
 
-              {/* PDF iframe */}
-              {!pdfError ? (
+              {shouldShowInlinePreview ? (
                 <iframe
                   src={`${RESUME_PATH}#view=FitH`}
                   title="Chinmay Raichur Resume"
-                  className="h-[700px] w-full"
-                  onError={() => setPdfError(true)}
+                  className="h-[65vh] min-h-[420px] w-full sm:h-[700px]"
+                  onError={() => setPreviewFailed(true)}
                 />
               ) : (
-                // Fallback if PDF not yet added to /public
                 <div className="flex h-[400px] flex-col items-center justify-center gap-4 p-8 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[rgba(99,102,241,0.1)]">
                     <FileText size={24} className="text-[var(--accent)]" />
                   </div>
                   <div>
                     <p className="font-semibold text-[var(--text-primary)]">
-                      Resume preview not available
+                      Resume preview is not available on this device
                     </p>
                     <p className="mt-1 text-sm text-[var(--text-muted)]">
-                      Add your resume as{' '}
-                      <code className="rounded bg-[var(--bg-secondary)] px-1.5 py-0.5 font-mono text-[11px]">
-                        /public/resume.pdf
-                      </code>{' '}
-                      to enable the preview.
+                      Open the PDF in a new tab for the best mobile viewing experience.
                     </p>
                   </div>
                   <a
                     href={RESUME_PATH}
-                    download="Chinmay_Raichur_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white"
                   >
-                    <Download size={14} />
-                    Download Anyway
+                    <ExternalLink size={14} />
+                    Open Resume
                   </a>
                 </div>
               )}

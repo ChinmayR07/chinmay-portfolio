@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, Download } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useScrolled } from '@/hooks/useScrolled';
@@ -97,6 +97,22 @@ export default function Navbar() {
 
           {/* ── Right Controls ────────────────────────────────────── */}
           <div className="flex items-center gap-2">
+            {/* Resume CTA (desktop) */}
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                'hidden items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold md:inline-flex',
+                'bg-[var(--accent)] text-white transition-all duration-200',
+                'hover:bg-[#4f46e5] hover:shadow-[0_0_20px_rgba(99,102,241,0.35)]'
+              )}
+              aria-label="Open resume"
+            >
+              <Download size={14} />
+              Resume
+            </a>
+
             {/* Dark / Light Theme Toggle — FULLY WORKING */}
             {mounted && (
               <button
@@ -217,6 +233,23 @@ export default function Navbar() {
 
               {/* Drawer links */}
               <ul className="flex flex-col gap-1">
+                <li>
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      'mb-2 flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold',
+                      'bg-[var(--accent)] text-white transition-all',
+                      'hover:bg-[#4f46e5]'
+                    )}
+                  >
+                    <Download size={15} />
+                    Resume
+                  </a>
+                </li>
+
                 {NAV_LINKS.map((link, i) => {
                   const isActive = activeSection === link.id;
                   return (
