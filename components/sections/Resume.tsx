@@ -10,19 +10,13 @@ import { cn } from '@/lib/utils';
 export default function Resume() {
   const [pdfError, setPdfError] = useState(false);
   const RESUME_PATH = '/resume.pdf';
-  const UPDATED = 'May 2024';
 
   return (
     <div className="section-padding border-b border-[var(--border)] bg-[var(--bg-secondary)]">
       <div className="section-container">
         <SectionWrapper>
           <div className="mx-auto max-w-3xl">
-            <SectionHeader
-              label="Resume"
-              title="My Resume"
-              subtitle={`Last updated: ${UPDATED}`}
-              align="center"
-            />
+            <SectionHeader label="Resume" title="My Resume" align="center" />
 
             {/* Action buttons */}
             <div className="mb-8 flex flex-wrap justify-center gap-3">
@@ -32,7 +26,7 @@ export default function Resume() {
                 className={cn(
                   'inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold',
                   'bg-[var(--accent)] text-white transition-all',
-                  'hover:bg-[#4f46e5] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]',
+                  'hover:bg-[#4f46e5] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]'
                 )}
               >
                 <Download size={15} />
@@ -45,7 +39,7 @@ export default function Resume() {
                 className={cn(
                   'inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium',
                   'border-[var(--border-strong)] text-[var(--text-primary)] transition-all',
-                  'hover:border-[var(--accent)] hover:text-[var(--accent)]',
+                  'hover:border-[var(--accent)] hover:text-[var(--accent)]'
                 )}
               >
                 <ExternalLink size={15} />
@@ -54,10 +48,12 @@ export default function Resume() {
             </div>
 
             {/* PDF Embed */}
-            <div className={cn(
-              'overflow-hidden rounded-xl border border-[var(--border)]',
-              'bg-[var(--bg-card)] shadow-lg',
-            )}>
+            <div
+              className={cn(
+                'overflow-hidden rounded-xl border border-[var(--border)]',
+                'bg-[var(--bg-card)] shadow-lg'
+              )}
+            >
               {/* Embed header bar */}
               <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-2.5">
                 <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">

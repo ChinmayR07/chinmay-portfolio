@@ -12,31 +12,35 @@ import { PROJECTS } from '@/data';
 import type { ProjectCategory } from '@/types';
 
 const ALL_CATEGORIES: (ProjectCategory | 'All')[] = [
-  'All', 'Full Stack', 'Backend', 'Cloud / DevOps', 'AI / ML', 'Frontend',
+  'All',
+  'Full Stack',
+  'Backend',
+  'Cloud / DevOps',
+  'AI / ML',
+  'Frontend',
 ];
 
 const CATEGORY_COLORS: Record<ProjectCategory, string> = {
-  'Full Stack':    'rgba(99,102,241,0.12)',
-  'Backend':       'rgba(16,185,129,0.12)',
-  'Cloud / DevOps':'rgba(251,146,60,0.12)',
-  'AI / ML':       'rgba(236,72,153,0.12)',
-  'Frontend':      'rgba(59,130,246,0.12)',
+  'Full Stack': 'rgba(99,102,241,0.12)',
+  Backend: 'rgba(16,185,129,0.12)',
+  'Cloud / DevOps': 'rgba(251,146,60,0.12)',
+  'AI / ML': 'rgba(236,72,153,0.12)',
+  Frontend: 'rgba(59,130,246,0.12)',
 };
 
 const CATEGORY_TEXT: Record<ProjectCategory, string> = {
-  'Full Stack':    '#818cf8',
-  'Backend':       '#34d399',
-  'Cloud / DevOps':'#fb923c',
-  'AI / ML':       '#f472b6',
-  'Frontend':      '#60a5fa',
+  'Full Stack': '#818cf8',
+  Backend: '#34d399',
+  'Cloud / DevOps': '#fb923c',
+  'AI / ML': '#f472b6',
+  Frontend: '#60a5fa',
 };
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory | 'All'>('All');
 
-  const filtered = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.category === activeFilter);
+  const filtered =
+    activeFilter === 'All' ? PROJECTS : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
     <div className="section-padding border-b border-[var(--border)] bg-[var(--bg-primary)]">
@@ -45,7 +49,7 @@ export default function Projects() {
           <SectionHeader
             label="Work"
             title="Featured Projects"
-            subtitle="Open-source projects showcasing full-stack, cloud, and AI engineering."
+            subtitle="Open-source projects showcasing full-stack, cloud, and AI engineering. More AI/ML and full-stack projects coming soon!"
           />
 
           {/* Filter tabs */}
@@ -58,7 +62,7 @@ export default function Projects() {
                   'rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200',
                   activeFilter === cat
                     ? 'bg-[var(--accent)] text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
-                    : 'border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]',
+                    : 'border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]'
                 )}
               >
                 {cat}
@@ -88,7 +92,7 @@ export default function Projects() {
                     className={cn(
                       'group flex flex-col rounded-xl border border-[var(--border)]',
                       'bg-[var(--bg-card)] transition-colors hover:border-[var(--border-strong)]',
-                      'overflow-hidden',
+                      'overflow-hidden'
                     )}
                   >
                     {/* Project image / placeholder */}
@@ -107,11 +111,15 @@ export default function Projects() {
                               className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl text-lg"
                               style={{ background: catColor, color: catText }}
                             >
-                              {project.category === 'AI / ML' ? '🤖'
-                                : project.category === 'Cloud / DevOps' ? '☁️'
-                                : project.category === 'Backend' ? '⚙️'
-                                : project.category === 'Full Stack' ? '🚀'
-                                : '💻'}
+                              {project.category === 'AI / ML'
+                                ? '🤖'
+                                : project.category === 'Cloud / DevOps'
+                                  ? '☁️'
+                                  : project.category === 'Backend'
+                                    ? '⚙️'
+                                    : project.category === 'Full Stack'
+                                      ? '🚀'
+                                      : '💻'}
                             </div>
                             <p className="text-xs text-[var(--text-muted)]">
                               Add screenshot to /public/projects/
@@ -129,7 +137,7 @@ export default function Projects() {
                       </div>
 
                       {/* Year badge */}
-                      <div className="absolute right-3 top-3 rounded-full bg-[var(--bg-primary)]/80 px-2.5 py-1 text-[10px] text-[var(--text-muted)] backdrop-blur-sm">
+                      <div className="bg-[var(--bg-primary)]/80 absolute right-3 top-3 rounded-full px-2.5 py-1 text-[10px] text-[var(--text-muted)] backdrop-blur-sm">
                         {project.year}
                       </div>
                     </div>
@@ -137,7 +145,7 @@ export default function Projects() {
                     {/* Card body */}
                     <div className="flex flex-1 flex-col p-4">
                       <div className="mb-2 flex items-start justify-between gap-2">
-                        <h3 className="font-display text-base font-bold text-[var(--text-primary)] leading-snug">
+                        <h3 className="font-display text-base font-bold leading-snug text-[var(--text-primary)]">
                           {project.title}
                         </h3>
                         {/* Links */}
@@ -190,6 +198,22 @@ export default function Projects() {
             </motion.div>
           </AnimatePresence>
 
+          {/* Coming Soon Message */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-10 rounded-xl border border-dashed border-[var(--border)] bg-[var(--bg-secondary)] p-8 text-center"
+          >
+            <p className="text-sm font-semibold text-[var(--text-primary)]">
+              🚀 More Projects Coming Soon
+            </p>
+            <p className="mt-2 text-xs text-[var(--text-secondary)]">
+              I'm actively building new AI/ML and full-stack projects. Check back soon or follow my
+              GitHub for latest updates!
+            </p>
+          </motion.div>
+
           {/* CTA */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -204,14 +228,13 @@ export default function Projects() {
               className={cn(
                 'inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium',
                 'border-[var(--border)] text-[var(--text-secondary)] transition-all',
-                'hover:border-[var(--accent)] hover:text-[var(--accent)]',
+                'hover:border-[var(--accent)] hover:text-[var(--accent)]'
               )}
             >
               <Github size={15} />
               View All Projects on GitHub
             </a>
           </motion.div>
-
         </SectionWrapper>
       </div>
     </div>

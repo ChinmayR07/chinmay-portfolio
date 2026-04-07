@@ -30,9 +30,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? 'https://chinmayraichur.me'
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://chinmayraichur.me'),
   title: {
     default: 'Chinmay Raichur — Full Stack Software Engineer',
     template: '%s | Chinmay Raichur',
@@ -77,8 +75,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Chinmay Raichur — Full Stack Software Engineer',
-    description:
-      'Building scalable systems for 100K+ users. React, Node.js, AWS, Docker, AI/ML.',
+    description: 'Building scalable systems for 100K+ users. React, Node.js, AWS, Docker, AI/ML.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -87,8 +84,11 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
     apple: '/apple-touch-icon.png',
   },
 };
@@ -109,21 +109,24 @@ const structuredData = {
     },
   ],
   knowsAbout: [
-    'React', 'Next.js', 'TypeScript', 'Node.js', 'Java', 'Spring Boot',
-    'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'GraphQL', 'REST APIs',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Node.js',
+    'Java',
+    'Spring Boot',
+    'AWS',
+    'Docker',
+    'Kubernetes',
+    'CI/CD',
+    'GraphQL',
+    'REST APIs',
   ],
-  sameAs: [
-    'https://github.com/ChinmayR07',
-    'https://linkedin.com/in/chinmay-raichur',
-  ],
+  sameAs: ['https://github.com/ChinmayR07', 'https://linkedin.com/in/chinmay-raichur'],
 };
 
 // ─── Root Layout ──────────────────────────────────────────────────────────────
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"

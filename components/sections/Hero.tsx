@@ -99,7 +99,9 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-5 max-w-xl text-base leading-relaxed text-[var(--text-secondary)]"
           >
-            Building scalable, production-grade systems that serve 100K+ users. Software Engineer{' '}
+            Building scalable, production-grade systems that serve 8.2M users.
+            <br />
+            Software Engineer @{' '}
             <a
               href="https://www.tradingtechnologies.com"
               target="_blank"
