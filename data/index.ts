@@ -30,7 +30,7 @@ export const EXPERIENCES: Experience[] = [
     title: 'Software Engineer',
     type: 'Full-time',
     startDate: 'Jul 2024',
-    endDate: 'Present',
+    endDate: 'Nov 2025',
     location: 'Chicago, IL',
     highlight: true,
     bullets: [
@@ -47,6 +47,7 @@ export const EXPERIENCES: Experience[] = [
       'TypeScript',
       'JavaScript',
       'Node.js',
+      'Python',
       'AWS S3',
       'SQS',
       'SNS',
@@ -54,7 +55,6 @@ export const EXPERIENCES: Experience[] = [
       'CloudFormation',
       'Docker',
       'GitHub Actions',
-      'Python',
     ],
   },
   {
@@ -249,6 +249,7 @@ export const EDUCATION: EducationItem[] = [
   },
 ];
 
+// ─── Awards ───────────────────────────────────────────────────────────────────
 export const AWARDS: Award[] = [
   {
     id: 'duke-marvels',
@@ -256,7 +257,7 @@ export const AWARDS: Award[] = [
     issuer: 'Accenture Solutions Pvt Ltd',
     year: '2021',
     description:
-      "Recognized for exceptional Agile development practices, outstanding code review contributions, and stepping up to lead the team during senior members' absence.",
+      "Recognized for exceptional Agile development practices, high-quality code review contributions, and stepping up to lead the team during senior members' absence.",
     icon: '🏆',
   },
 ];
@@ -269,21 +270,19 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: 'Coursera (Stanford University)',
     year: '2024',
     description:
-      'Completed comprehensive Machine Learning course by Andrew Ng. Mastered supervised learning, neural networks, and practical ML implementation techniques.',
+      'Completed Andrew Ng’s Machine Learning Specialization covering supervised learning, neural networks, and practical ML implementation.',
     icon: '🎓',
     certificateUrl: 'https://www.coursera.org/account/accomplishments/verify/YHS28T684DRX',
   },
 ];
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
-// Only featured open-source projects shown here.
-// More AI/ML and full-stack projects coming soon!
 export const PROJECTS: Project[] = [
   {
     id: 'portfolio',
     title: 'Developer Portfolio + AI Bot',
     description:
-      'This portfolio website — built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Features a Claude API-powered AI assistant that answers recruiter questions in real time.',
+      'Personal portfolio built with Next.js, TypeScript, Tailwind CSS, and Framer Motion, featuring a Claude API-powered assistant that answers recruiter questions in real time.',
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Claude API', 'Framer Motion'],
     githubUrl: 'https://github.com/ChinmayR07/chinmay-portfolio',
     liveUrl: 'https://chinmayraichur.me',
@@ -294,7 +293,6 @@ export const PROJECTS: Project[] = [
 ];
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
-// Export from LinkedIn: Settings → Data Privacy → Get a copy of your data → Recommendations
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 'greg-szeszko',
@@ -305,16 +303,21 @@ export const TESTIMONIALS: Testimonial[] = [
     text: "I had the pleasure of seeing Chinmay grow from an intern into a full-time engineer at TT, and it was clear from the start that he brought a thoughtful, solutions-oriented mindset to every challenge. He consistently demonstrated a willingness to learn, a calm and focused approach to problem-solving, and a strong sense of ownership over his work. What stood out most was Chinmay's ability to engage with complex technical problems without losing sight of the bigger picture. He asked insightful questions, sought feedback, and always looked for ways to improve—not just his own skills, but the systems around him. Chinmay is the kind of engineer who makes teams better—not just through code, but through character.",
     linkedInUrl: 'https://www.linkedin.com/in/greg-szeszko-6b283150/',
   },
-  // Coming soon: Team Lead recommendation from Accenture
-  // {
-  //   id: 'team-lead-accenture',
-  //   name: 'Add Team Lead Name',
-  //   title: 'Team Lead / Engineering Manager',
-  //   company: 'Accenture',
-  //   relationship: 'Team Lead at Accenture',
-  //   text: 'Add their recommendation text here.',
-  //   linkedInUrl: 'https://linkedin.com/in/team-lead-name',
-  // },
+  {
+    id: 'yatish-dhanu',
+    name: 'Yatish Dhanu',
+    title: 'Application Development Team Lead',
+    company: 'Accenture',
+    relationship: 'Application Development Team Lead at Accenture',
+    text: `I had the pleasure of managing Chinmay during his time at Accenture, where he consistently demonstrated strong technical skills, ownership, and a proactive approach to problem-solving.
+
+As part of my team, Chinmay contributed to building and improving enterprise-scale applications, helping enhance performance, reliability, and system efficiency for applications supporting large user bases. One of his standout contributions was designing and developing an AI-powered conversational chatbot using Azure Cognitive Services and modern NLP technologies. This solution automated key workflows and demonstrated the value of conversational AI in enterprise environments, receiving positive recognition from leadership.
+
+Chinmay consistently showed strong analytical thinking, attention to detail, and a willingness to take ownership of challenging tasks. He collaborated effectively across teams and continuously invested in expanding his technical knowledge. Over time, I saw him grow into a dependable engineer capable of delivering high-quality solutions with minimal supervision.
+
+I would confidently recommend Chinmay to any organization seeking a motivated software engineer with strong fundamentals, adaptability, and a growth mindset.`,
+    linkedInUrl: 'https://www.linkedin.com/in/yatish-dhanu/',
+  },
 ];
 
 // ─── Social Links ─────────────────────────────────────────────────────────────
