@@ -25,16 +25,7 @@ import {
   SiPostman,
   SiPhp,
 } from 'react-icons/si';
-import {
-  Code2,
-  Cloud,
-  Database,
-  Cpu,
-  Wrench,
-  Brain,
-  Coffee,
-  Cloud as AzureIcon,
-} from 'lucide-react';
+import { Code2, Cloud, Database, Wrench, Brain, Coffee, Cloud as AzureIcon } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { staggerContainer, scaleIn } from '@/lib/animations';

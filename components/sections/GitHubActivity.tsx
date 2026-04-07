@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Star, GitFork, ExternalLink, Code2, Users, BookMarked } from 'lucide-react';
+import { Github, Star, ExternalLink, Code2, Users, BookMarked } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { staggerContainer, fadeUp } from '@/lib/animations';
@@ -27,9 +27,6 @@ const LANG_COLORS: Record<string, string> = {
 
 // GitHub contribution squares — static visual representation
 // In production, use github-contributions-api or react-activity-calendar
-const DAYS_OF_WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 function ContributionGraph() {
   // Generate a representative contribution pattern (52 weeks × 7 days)
   // Replace with real data from github-contributions-api in production

@@ -10,7 +10,7 @@ import { useScrolled } from '@/hooks/useScrolled';
 import { NAV_LINKS } from '@/data';
 
 export default function Navbar() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const activeSection = useActiveSection();
   const scrolled = useScrolled();
   const [mobileOpen, setMobileOpen] = useState(false);

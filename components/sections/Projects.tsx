@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, Star, Tag } from 'lucide-react';
+import { Github, ExternalLink, Tag } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { staggerContainer, fadeUp, cardHoverProps } from '@/lib/animations';
@@ -209,8 +209,8 @@ export default function Projects() {
               🚀 More Projects Coming Soon
             </p>
             <p className="mt-2 text-xs text-[var(--text-secondary)]">
-              I'm actively building new AI/ML and full-stack projects. Check back soon or follow my
-              GitHub for latest updates!
+              I&apos;m actively building new AI/ML and full-stack projects. Check back soon or
+              follow my GitHub for latest updates!
             </p>
           </motion.div>
 
