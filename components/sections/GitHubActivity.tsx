@@ -132,13 +132,13 @@ export default function GitHubActivity() {
               </a>
             </div>
             <ContributionGraph />
-            <p className="mt-3 text-xs text-[var(--text-muted)]">
+            {/* <p className="mt-3 text-xs text-[var(--text-muted)]">
               * Install{' '}
               <code className="rounded bg-[var(--bg-secondary)] px-1 py-0.5 font-mono text-[10px]">
                 react-activity-calendar
               </code>{' '}
               and connect the GitHub contributions API for real live data.
-            </p>
+            </p> */}
           </div>
 
           {/* GitHub stats */}
