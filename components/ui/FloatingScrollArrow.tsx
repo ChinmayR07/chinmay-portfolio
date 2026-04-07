@@ -46,15 +46,15 @@ export default function FloatingScrollArrow() {
       onClick={handleScrollToNext}
       aria-label="Scroll to next section"
       className={cn(
-        'fixed left-1/2 z-40 -translate-x-1/2',
+        'fixed inset-x-0 z-40 mx-auto w-max',
         'bottom-[calc(1rem+env(safe-area-inset-bottom))] sm:bottom-6',
         'flex h-11 items-center gap-1 rounded-full border px-3',
         'border-[var(--border-strong)] bg-[var(--bg-card)]/90 text-[var(--text-secondary)] backdrop-blur',
         'transition-all duration-200 hover:border-[var(--accent)] hover:text-[var(--accent)]',
         hasNextSection ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
       )}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: hasNextSection ? 1 : 0, y: hasNextSection ? 0 : 10 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: hasNextSection ? 1 : 0 }}
       transition={{ duration: 0.2 }}
     >
       <span className="text-xs font-semibold uppercase tracking-[0.14em]">Scroll</span>

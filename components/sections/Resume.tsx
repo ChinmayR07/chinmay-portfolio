@@ -1,22 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Download, ExternalLink, FileText, Eye } from 'lucide-react';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 
 export default function Resume() {
-  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [previewFailed, setPreviewFailed] = useState(false);
   const RESUME_PATH = '/resume.pdf';
 
-  useEffect(() => {
-    const ua = navigator.userAgent || '';
-    setIsMobileDevice(/Android|iPhone|iPad|iPod/i.test(ua));
-  }, []);
-
-  const shouldShowInlinePreview = !isMobileDevice && !previewFailed;
+  const shouldShowInlinePreview = !previewFailed;
 
   return (
     <div className="section-padding border-b border-[var(--border)] bg-[var(--bg-secondary)]">
@@ -77,7 +71,7 @@ export default function Resume() {
                 <iframe
                   src={`${RESUME_PATH}#view=FitH`}
                   title="Chinmay Raichur Resume"
-                  className="h-[65vh] min-h-[420px] w-full sm:h-[700px]"
+                  className="h-[72vh] min-h-[520px] w-full sm:h-[700px]"
                   onError={() => setPreviewFailed(true)}
                 />
               ) : (
@@ -87,10 +81,10 @@ export default function Resume() {
                   </div>
                   <div>
                     <p className="font-semibold text-[var(--text-primary)]">
-                      Resume preview is not available on this device
+                      Resume preview is not available in this browser
                     </p>
                     <p className="mt-1 text-sm text-[var(--text-muted)]">
-                      Open the PDF in a new tab for the best mobile viewing experience.
+                      Open the PDF in a new tab for the best viewing experience.
                     </p>
                   </div>
                   <a
