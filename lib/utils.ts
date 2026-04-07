@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]): string {
 
 /**
  * Calculates years of experience from a start year.
- * e.g. calculateYearsOfExp(2019) → "5+ years"
+ * e.g. calculateYearsOfExp(2019) → "5+"
  */
 export function calculateYearsOfExp(startYear: number): string {
   const years = new Date().getFullYear() - startYear;
@@ -20,18 +20,20 @@ export function calculateYearsOfExp(startYear: number): string {
 
 /**
  * Formats a date range for display.
- * e.g. formatDateRange("Jan 2019", "Oct 2021") → "Jan 2019 – Oct 2021 · 2 yrs 9 mos"
+ * e.g. formatDateRange("Jan 2019", "Oct 2021") → "Jan 2019 – Oct 2021"
  */
 export function formatDateRange(startDate: string, endDate: string | 'Present'): string {
   return `${startDate} – ${endDate}`;
 }
 
 /**
- * Calculates duration between two dates for display.
- * e.g. getDuration("Jan 2019", "Oct 2021") → "2 yrs 10 mos"
+ * Calculates duration between two dates for display using inclusive month counting.
+ * e.g.
+ * - getDuration("Jun 2023", "Aug 2023") → "3 mos"
+ * - getDuration("Jan 2019", "Oct 2021") → "2 yrs 10 mos"
  */
 export function getDuration(startDate: string, endDate: string | 'Present'): string {
-  const parseDate = (d: string) => {
+  const parseDate = (d: string): Date => {
     const months = [
       'Jan',
       'Feb',
@@ -46,17 +48,27 @@ export function getDuration(startDate: string, endDate: string | 'Present'): str
       'Nov',
       'Dec',
     ];
-    const parts = d.split(' ');
-    const month = months.indexOf(parts[0]);
-    const year = parseInt(parts[1]);
+
+    const [monthStr, yearStr] = d.split(' ');
+    const month = months.indexOf(monthStr);
+    const year = parseInt(yearStr, 10);
+
+    if (month === -1 || Number.isNaN(year)) {
+      throw new Error(`Invalid date format: ${d}. Expected format like "Jan 2023".`);
+    }
+
     return new Date(year, month);
   };
 
   const start = parseDate(startDate);
   const end = endDate === 'Present' ? new Date() : parseDate(endDate);
 
-  const totalMonths =
+  let totalMonths =
     (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
+
+  if (totalMonths < 0) {
+    totalMonths = 0;
+  }
 
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
