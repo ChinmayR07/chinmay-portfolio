@@ -1,4 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  AWARDS,
+  CERTIFICATIONS,
+  EDUCATION,
+  EXPERIENCES,
+  NAV_LINKS,
+  PROJECTS,
+  SKILL_GROUPS,
+  TESTIMONIALS,
+} from '@/data';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ChatMessage {
@@ -11,83 +21,164 @@ interface RequestBody {
   history?: ChatMessage[];
 }
 
-// ─── System Prompt ────────────────────────────────────────────────────────────
-// This is Chinmay's full profile loaded as context for the AI bot.
-// Update this with any new experience or projects.
-const SYSTEM_PROMPT = `You are a professional portfolio assistant for Chinmay Raichur, 
-a Full Stack Software Engineer with 4.5+ years of experience. Your job is to answer 
-questions from recruiters, hiring managers, and developers who are visiting Chinmay's 
-portfolio website.
+interface GitHubRepo {
+  name: string;
+  description: string;
+  html_url: string;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  open_issues_count: number;
+  topics?: string[];
+  updated_at: string;
+  pushed_at: string;
+  fork: boolean;
+}
 
-## About Chinmay
+const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? 'ChinmayR07';
+const FAQ_CACHE_TTL_MS = 5 * 60 * 1000;
+const faqResponseCache = new Map<string, { response: string; expiresAt: number }>();
 
-**Current Role:** Software Engineer at Trading Technologies International, Chicago, IL (Jul 2024 – Present)
-**Location:** San Francisco, CA (Open to relocate)
-**Email:** chinmayraichur@gmail.com
-**LinkedIn:** linkedin.com/in/chinmay-raichur
+const BASE_SYSTEM_PROMPT = `You are Chinmay Raichur's AI portfolio assistant.
 
-## Education
-- **MS Computer Engineering** — Stony Brook University (SUNY), GPA: 3.9/4.0 (Aug 2022 – May 2024)
-  - Graduate Teaching Assistant: ESE 344 — Data Structures & Algorithms (C++), 120 students
-- **BE Electronics Engineering** — DJ Sanghvi College of Engineering, University of Mumbai, GPA: 7.82/10.0 (2014–2018)
+Your job:
+- Answer questions for recruiters/hiring managers/developers about Chinmay's background, projects, and GitHub work.
+- Prioritize factual accuracy from the provided context.
+- Be concise, confident, and professional.
 
-## Work Experience
+Behavior rules:
+- Keep answers to 2-5 sentences unless the user asks for deep detail.
+- Lead with strongest evidence (impact metrics, production scope, ownership).
+- If a question asks for "latest/current/newest" repo info, prioritize the GitHub live snapshot context.
+- If data is unavailable or uncertain, say that clearly and suggest contacting Chinmay at chinmayraichur@gmail.com.
+- For salary, notice period, or private/personal questions: respond politely that it's best discussed directly with Chinmay.
+- Never invent companies, dates, repo names, metrics, or links.
+`;
 
-### Trading Technologies International, Inc. — Software Engineer (Jul 2024 – Present, Chicago IL)
-- Led design and implementation of an S3 ingestion system with UI-driven configuration for 100K+ users — improved security by 50% and reduced costs by 70%
-- Enhanced Customer Portal UX for 80K+ users with new navigation and RBAC, boosting engagement 40% using JavaScript
-- Designed a centralized Risk API validation subsystem with 100+ unit tests, reducing support tickets by 80%
-- Integrated SQS/SNS into ingestion workflow, improving reliability by 40% across async microservices
-- Delivered cross-region authentication routing using CloudFormation, enabling low-latency fault-tolerant failover
-- Built multi-region AWS infrastructure and CI/CD for a containerized Rust service using Python & GitHub Actions — cut deployment times by 90%
-- Optimized SQL queries for Aurora RDS by 60% to support ad-hoc reporting
-- Leveraged GitHub Copilot for AI-assisted development to accelerate delivery
-- Mentored a software engineering intern through code reviews, Agile practices, and AWS deployments
+function listToBullets(lines: string[]) {
+  return lines.map((line) => `- ${line}`).join('\n');
+}
 
-### Trading Technologies International, Inc. — Software Engineer Intern (Jun 2023 – Aug 2023, Chicago IL)
-- Built a secure Node.js library integrating AWS Secrets Manager — eliminated static credentials, cut config errors by 60%
-- Containerized and deployed messaging microservices with Docker and CI/CD — cut deployment times by 75%
-- Diagnosed and stabilized real-time WebSocket stability issues
-- Built Nginx load-balanced gateways with advanced caching
+function normalizeFaqKey(input: string) {
+  return input.toLowerCase().replace(/\s+/g, ' ').trim();
+}
 
-### Stony Brook University — Graduate Teaching Assistant (Jan 2023 – May 2023)
-- Taught ESE 344: Data Structures & Algorithms (C++) to 120 undergraduate students
-- Conducted office hours, graded assignments, designed coursework
+function buildPortfolioContext() {
+  const nav = NAV_LINKS.map((link) => link.label).join(', ');
 
-### Accenture Solutions Pvt Ltd — Senior Software Engineer (Nov 2020 – Oct 2021, Mumbai India)
-- Optimized tax and invoice processing for 8.2M users using Java design patterns and SQL — improved performance by 40%
-- Designed, trained, and deployed conversational AI chatbot using Azure Cognitive Services (LUIS) and Microsoft Bot Framework — 25+ intents and entities for 28K+ users
-- Developed REST APIs in Spring Boot with TDD approach — 90%+ test coverage
-- AI-driven FAQ chatbot prototype adopted as Accenture's internal employee support automation bot
-- Won "Duke Marvels" Award for exceptional Agile practices and leadership
+  const experienceLines = EXPERIENCES.map((exp) => {
+    const bullets = exp.bullets.slice(0, 3).join(' | ');
+    return `${exp.title} @ ${exp.company} (${exp.startDate} - ${exp.endDate}, ${exp.location}) :: ${bullets}`;
+  });
 
-### Accenture Solutions Pvt Ltd — Software Engineer (Jan 2019 – Oct 2020, Mumbai India)
-- Optimized Java Spring Batch jobs — 60% performance improvement, saved 40 hours/week
-- Developed reusable Java modules for invoice validation
-- Azure Bot Framework + LUIS NLP — 40% performance improvement for 28K users
-- Created technical documentation reducing production issues by 45%
+  const skillLines = SKILL_GROUPS.map(
+    (group) => `${group.category}: ${group.skills.slice(0, 8).join(', ')}`
+  );
 
-## Technical Skills
-- **Frontend:** React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS
-- **Backend:** Java, Spring Boot, Node.js, Express.js, C#, PHP, REST APIs, GraphQL, Apache Kafka
-- **AWS:** S3, SNS, SQS, EC2, Elastic Beanstalk, CloudFormation, IAM, Secrets Manager, ECR, Aurora RDS
-- **Azure:** Cognitive Services, LUIS, Bot Framework, Azure SQL
-- **DevOps:** Docker, Kubernetes, GitHub Actions, Jenkins, Maven, ELK Stack, CI/CD
-- **Databases:** MySQL (Aurora RDS), Redis, MongoDB
-- **AI/GenAI:** Azure Cognitive Services, NLP Chatbots, GitHub Copilot, Claude API, Conversational AI
-- **Practices:** TDD, Microservices, Design Patterns, Agile, Code Review, Unit/Integration Testing
+  const projectLines = PROJECTS.map(
+    (project) =>
+      `${project.title} (${project.year}) [${project.category}] - ${project.description} | tech: ${project.techStack.join(', ')} | github: ${project.githubUrl ?? 'N/A'} | live: ${project.liveUrl ?? 'N/A'}`
+  );
 
-## Awards
-- **Duke Marvels Award** — Accenture, 2021 — for exceptional Agile practices, code reviews, and leadership
+  const educationLines = EDUCATION.map(
+    (edu) =>
+      `${edu.degree} ${edu.major} @ ${edu.institutionShort} (${edu.startYear} - ${edu.endYear}) GPA ${edu.gpa}/${edu.gpaScale}`
+  );
 
-## Instructions
-- Be concise, professional, and enthusiastic about Chinmay's qualifications
-- Lead with the most impressive/relevant information
-- Use specific numbers and achievements when relevant (100K+ users, 70% cost reduction, etc.)
-- If asked about salary expectations, notice period, or sensitive personal information, politely say "That's best discussed directly with Chinmay — you can reach him at chinmayraichur@gmail.com"
-- If asked something you don't know about Chinmay, say so honestly and suggest contacting him directly
-- Keep responses to 2-4 sentences unless more detail is specifically requested
-- You can suggest follow-up questions the recruiter might find useful`;
+  const awardLines = AWARDS.map((award) => `${award.title} (${award.year}) - ${award.description}`);
+  const certificationLines = CERTIFICATIONS.map(
+    (cert) => `${cert.title} (${cert.year}) by ${cert.issuer}`
+  );
+  const testimonialLines = TESTIMONIALS.slice(0, 3).map(
+    (t) => `${t.name}, ${t.title} at ${t.company}: "${t.text.slice(0, 220)}..."`
+  );
+
+  return `## Portfolio Context (Source of Truth from Portfolio Data)
+Sections on portfolio: ${nav}
+
+### Experience
+${listToBullets(experienceLines)}
+
+### Skills
+${listToBullets(skillLines)}
+
+### Projects
+${listToBullets(projectLines)}
+
+### Education
+${listToBullets(educationLines)}
+
+### Awards
+${listToBullets(awardLines)}
+
+### Certifications
+${listToBullets(certificationLines)}
+
+### Testimonials (sample)
+${listToBullets(testimonialLines)}
+`;
+}
+
+async function fetchLiveGitHubContext() {
+  const headers: HeadersInit = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'chinmay-portfolio-chatbot',
+  };
+
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
+  const [userRes, reposRes] = await Promise.all([
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+      headers,
+      next: { revalidate: 300 },
+    }),
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=24&sort=updated`, {
+      headers,
+      next: { revalidate: 300 },
+    }),
+  ]);
+
+  if (!userRes.ok || !reposRes.ok) {
+    throw new Error(
+      `GitHub API failed: user=${userRes.status} repos=${reposRes.status} username=${GITHUB_USERNAME}`
+    );
+  }
+
+  const user = await userRes.json();
+  const repos = (await reposRes.json()) as GitHubRepo[];
+
+  const sourceRepos = repos.filter((repo) => !repo.fork);
+  const topByStars = [...sourceRepos]
+    .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    .slice(0, 8);
+  const recentUpdates = [...sourceRepos]
+    .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
+    .slice(0, 8);
+
+  const repoLines = sourceRepos.slice(0, 12).map((repo) => {
+    const topics = repo.topics?.slice(0, 5).join(', ') || 'none';
+    return `${repo.name} | stars=${repo.stargazers_count} forks=${repo.forks_count} lang=${repo.language ?? 'N/A'} | updated=${repo.updated_at} | topics=${topics} | ${repo.description ?? 'No description'} | ${repo.html_url}`;
+  });
+
+  return `## Live GitHub Snapshot
+GitHub username: ${user.login}
+Profile URL: ${user.html_url}
+Public repos: ${user.public_repos}
+Followers: ${user.followers}
+Following: ${user.following}
+
+Top repositories by stars:
+${listToBullets(topByStars.map((repo) => `${repo.name} (${repo.stargazers_count}★)`))}
+
+Most recently pushed repositories:
+${listToBullets(recentUpdates.map((repo) => `${repo.name} (pushed ${repo.pushed_at})`))}
+
+Repository details:
+${listToBullets(repoLines)}
+`;
+}
 
 // ─── POST Handler ─────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
@@ -97,6 +188,20 @@ export async function POST(req: NextRequest) {
 
     if (!message?.trim()) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
+    }
+
+    const trimmedMessage = message.trim();
+    const isFirstTurn = history.length === 0;
+    const faqCacheKey = normalizeFaqKey(trimmedMessage);
+
+    if (isFirstTurn) {
+      const cached = faqResponseCache.get(faqCacheKey);
+      if (cached && cached.expiresAt > Date.now()) {
+        return NextResponse.json({
+          response: cached.response,
+          cache: { source: 'faq-memory', hit: true },
+        });
+      }
     }
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -112,13 +217,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const portfolioContext = buildPortfolioContext();
+    let githubContext = '## Live GitHub Snapshot\n- Live GitHub data unavailable for this request.';
+
+    try {
+      githubContext = await fetchLiveGitHubContext();
+    } catch (githubError) {
+      console.warn('Could not fetch live GitHub data for chat context:', githubError);
+    }
+
+    const systemPrompt = `${BASE_SYSTEM_PROMPT}\n${portfolioContext}\n${githubContext}`;
+
     // Build messages array — include conversation history for multi-turn chat
     const messages = [
       ...history.map((msg) => ({
         role: msg.role,
         content: msg.content,
       })),
-      { role: 'user' as const, content: message },
+      { role: 'user' as const, content: trimmedMessage },
     ];
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -130,8 +246,9 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 500,
-        system: SYSTEM_PROMPT,
+        max_tokens: 700,
+        cache_control: { type: 'ephemeral' },
+        system: systemPrompt,
         messages,
       }),
     });
@@ -148,7 +265,21 @@ export async function POST(req: NextRequest) {
     const data = await response.json();
     const aiResponse = data.content?.[0]?.text ?? 'Sorry, I could not generate a response.';
 
-    return NextResponse.json({ response: aiResponse });
+    if (isFirstTurn) {
+      faqResponseCache.set(faqCacheKey, {
+        response: aiResponse,
+        expiresAt: Date.now() + FAQ_CACHE_TTL_MS,
+      });
+    }
+
+    return NextResponse.json({
+      response: aiResponse,
+      cache: {
+        source: 'anthropic-prompt-cache',
+        read_tokens: data?.usage?.cache_read_input_tokens ?? 0,
+        write_tokens: data?.usage?.cache_creation_input_tokens ?? 0,
+      },
+    });
   } catch (error) {
     console.error('Chat route error:', error);
     return NextResponse.json(
