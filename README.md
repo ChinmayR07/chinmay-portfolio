@@ -2,8 +2,8 @@
 
 > Personal portfolio website built with **Next.js 14**, **React 18**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**. Features a Claude API-powered AI assistant that answers recruiter questions in real time.
 
-🌐 **Live:** [chinmayraichur.me](https://chinmay-portfolio-seven.vercel.app/)  
-📄 **Resume:** [Download PDF](https://chinmayraichur.me/resume.pdf)  
+🌐 **Live:** [chinmayraichur.me](https://chinmay-portfolio-seven.vercel.app)  
+📄 **Resume:** [Download PDF](https://chinmay-portfolio-seven.vercel.app/resume.pdf)  
 💼 **LinkedIn:** [linkedin.com/in/chinmay-raichur](https://linkedin.com/in/chinmay-raichur)
 
 ---
