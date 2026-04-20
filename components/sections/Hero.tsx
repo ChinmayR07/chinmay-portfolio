@@ -106,7 +106,7 @@ export default function Hero() {
             >
               Trading Technologies
             </a>
-            , Chicago.
+            , based in San Francisco, California.
             <br />
             MS Computer Engineering,{' '}
             <span className="text-[var(--text-primary)]">Stony Brook University</span> (GPA

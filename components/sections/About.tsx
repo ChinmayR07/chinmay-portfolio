@@ -26,7 +26,7 @@ const HIGHLIGHTS = [
   },
   {
     icon: MapPin,
-    label: 'Chicago, IL',
+    label: 'San Francisco, CA',
     detail: 'Open to relocate or work remotely',
   },
 ];
@@ -76,7 +76,7 @@ export default function About() {
                   </p>
                   <div className="mt-0.5 flex items-center gap-1.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)]" />
-                    <span className="text-xs text-[var(--success)]">Full-time · Chicago</span>
+                    <span className="text-xs text-[var(--success)]">Based in San Francisco</span>
                   </div>
                 </div>
               </div>

@@ -14,7 +14,7 @@ export default function Footer() {
             CR<span className="text-[var(--accent)]">.</span>
           </p>
           <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-            Full Stack Software Engineer · Chicago, IL
+            Full Stack Software Engineer · San Francisco, CA
           </p>
         </div>
 

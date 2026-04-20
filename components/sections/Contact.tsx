@@ -34,7 +34,7 @@ const CONTACT_ITEMS = [
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Chicago, IL · Open to Relocate / Remote',
+    value: 'San Francisco, CA · Open to Relocate / Remote / Hybrid',
     href: undefined,
   },
 ];

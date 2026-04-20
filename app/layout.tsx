@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     'Software engineer with 4.5+ years building scalable systems for 100K+ users. ' +
     'Expert in React, Next.js, Node.js, AWS, Docker, and AI integrations. ' +
-    'Currently at Trading Technologies, Chicago. Open to senior engineer roles.',
+    'Currently based in San Francisco, California. Open to senior engineer roles.',
   keywords: [
     'Chinmay Raichur',
     'software engineer',
@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     'AWS cloud engineer',
     'Next.js',
     'TypeScript',
-    'Chicago',
+    'San Francisco',
+    'California',
     'Trading Technologies',
     'Stony Brook University',
   ],
